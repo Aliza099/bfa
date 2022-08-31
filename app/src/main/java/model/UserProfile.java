@@ -1,6 +1,6 @@
 package model;
 
-public class DataClass {
+public class UserProfile {
 
     private Integer id;
     private String email;

@@ -22,8 +22,6 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.Map;
 
-import model.DataClass;
-
 public class UserProfile extends AppCompatActivity {
 
     private TextView move;
@@ -33,7 +31,7 @@ public class UserProfile extends AppCompatActivity {
     private TextView first_name, last_name;
     private static String URL_UPDATE = "https://bfinder-be.herokuapp.com/api/user/profile";
     private static String URL_UPDATE1 = "https://bfinder-be.herokuapp.com/api/user/profile";
-    DataClass dataClass = new DataClass();
+    model.UserProfile dataClass = new model.UserProfile();
 
     private  final String TAG = "UserProfile";
 
@@ -47,8 +45,8 @@ public class UserProfile extends AppCompatActivity {
         //email = findViewById(R.id.email);
 
         Gson gson = new Gson();
-         String data = "{\"firstName\":\"Aleeza\", \"lastName\": \"Naeem\"}";
-        DataClass data1 = gson.fromJson(data, DataClass.class);
+         String jsonInString = "{\"email\":\"alxzmj1433@gmail.com\",\"firstName\":\"Aleeza\",\"lastName\":\"Naeem\",\"userName\":\"Aleeza Naeem\"}";
+        model.UserProfile userProfile = gson.fromJson(jsonInString, model.UserProfile.class);
 
 
 
@@ -140,6 +138,11 @@ public class UserProfile extends AppCompatActivity {
 
     // Get Api Call
     private void Get() {
+
+//        Gson gson = new Gson();
+//        String data = "{\"email\":\"alxzmj1433@gmail.com\",\"firstName\":\"Aleeza\", \"lastName\": \"Naeem\"\"username\":\"null\",}";
+//        DataClass dataClass = gson.fromJson(data, DataClass.class);
+
         SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
         String save = preferences.getString("token", "");
 
@@ -148,7 +151,7 @@ public class UserProfile extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Toast.makeText(UserProfile.this, "send", Toast.LENGTH_SHORT).show();
-                        
+
 
                     }
                 }, new Response.ErrorListener() {
