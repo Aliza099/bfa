@@ -13,7 +13,6 @@ import android.widget.Toast;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -22,18 +21,22 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class UserProfile extends AppCompatActivity {
 
     private TextView move;
     private Button btn_update;
     private ProgressBar loading;
-    private String firstName,setlastName;
     private TextView first_name, last_name;
-    private static String URL_UPDATE = "https://bfinder-be.herokuapp.com/api/user/profile";
+    private static String URL_UPDATE = "https://bfinder-be.herokuapp.com/api/";
     private static String URL_UPDATE1 = "https://bfinder-be.herokuapp.com/api/user/profile";
-    model.UserProfile dataClass = new model.UserProfile();
 
-    private  final String TAG = "UserProfile";
+    private final String TAG = "UserProfile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +46,6 @@ public class UserProfile extends AppCompatActivity {
         first_name = findViewById(R.id.first_name);
         last_name = findViewById(R.id.last_name);
         //email = findViewById(R.id.email);
-
-        Gson gson = new Gson();
-         String jsonInString = "{\"email\":\"alxzmj1433@gmail.com\",\"firstName\":\"Aleeza\",\"lastName\":\"Naeem\",\"userName\":\"Aleeza Naeem\"}";
-        model.UserProfile userProfile = gson.fromJson(jsonInString, model.UserProfile.class);
-
 
 
         // click on Listner
@@ -72,6 +70,34 @@ public class UserProfile extends AppCompatActivity {
 
     }
 
+    private void Get() {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(URL_UPDATE)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        myapi api = retrofit.create(myapi.class);
+        Call<model> call = api.getmodels();
+        call.enqueue(new Callback<model>() {
+            @Override
+            public void onResponse(Call<model> call, Response<model> response) {
+                model data = response.body();
+
+                first_name.append("" +data.getFirst_name()+"\n");
+                last_name.append(""+data.getLast_name()+"\n");
+
+
+            }
+
+            @Override
+            public void onFailure(Call<model>call, Throwable t) {
+
+            }
+        });
+
+    }
+
     private void Update() {
         SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
         String save = preferences.getString("token", "");
@@ -85,7 +111,7 @@ public class UserProfile extends AppCompatActivity {
 
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_UPDATE1,
-                new Response.Listener<String>() {
+                new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
 
@@ -93,8 +119,9 @@ public class UserProfile extends AppCompatActivity {
                         loading.setVisibility(View.GONE);
                         btn_update.setVisibility(View.VISIBLE);
 
+
                     }
-                }, new Response.ErrorListener() {
+                }, new com.android.volley.Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
 
@@ -104,7 +131,8 @@ public class UserProfile extends AppCompatActivity {
 
 
             }
-        }) {
+        })
+        {
 
             @Override
             protected Map<String, String> getParams() {
@@ -124,7 +152,7 @@ public class UserProfile extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headerMap = new HashMap<String, String>();
-               // headerMap.put("Content-Type", "application/json");
+                // headerMap.put("Content-Type", "application/json");
                 headerMap.put("Authorization", save);
                 return headerMap;
             }
@@ -135,47 +163,48 @@ public class UserProfile extends AppCompatActivity {
 
 
     }
+
+}
 
     // Get Api Call
-    private void Get() {
+//    private void Get() {
+//
+////        Gson gson = new Gson();
+////        String data = "{\"email\":\"alxzmj1433@gmail.com\",\"firstName\":\"Aleeza\", \"lastName\": \"Naeem\"\"username\":\"null\",}";
+////        DataClass dataClass = gson.fromJson(data, DataClass.class);
+//
+//        SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
+//        String save = preferences.getString("token", "");
+//
+//        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_UPDATE,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        Toast.makeText(UserProfile.this, "send", Toast.LENGTH_SHORT).show();
+//
+//
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Toast.makeText(UserProfile.this, error.toString(), Toast.LENGTH_SHORT).show();
+//
+//            }
+//        }) {
+//            // Headers
+//            @Override
+//            public Map<String, String> getHeaders() throws AuthFailureError {
+//                Map<String, String> headerMap = new HashMap<String, String>();
+//                headerMap.put("Content-Type", "application/json");
+//                headerMap.put("Authorization", save);
+//                return headerMap;
+//            }
+//
+//        };
+//        RequestQueue requestQueue = Volley.newRequestQueue(this);
+//        requestQueue.add(stringRequest);
 
-//        Gson gson = new Gson();
-//        String data = "{\"email\":\"alxzmj1433@gmail.com\",\"firstName\":\"Aleeza\", \"lastName\": \"Naeem\"\"username\":\"null\",}";
-//        DataClass dataClass = gson.fromJson(data, DataClass.class);
 
-        SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
-        String save = preferences.getString("token", "");
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_UPDATE,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Toast.makeText(UserProfile.this, "send", Toast.LENGTH_SHORT).show();
-
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(UserProfile.this, error.toString(), Toast.LENGTH_SHORT).show();
-
-            }
-        }) {
-            // Headers
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> headerMap = new HashMap<String, String>();
-                headerMap.put("Content-Type", "application/json");
-                headerMap.put("Authorization", save);
-                return headerMap;
-            }
-
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-
-    }
-}
 
 
 
