@@ -1,11 +1,18 @@
 package com.example.bfa;
 
-public class model {
+public class UserDetail {
 
-    int id;
-    String email,first_name,last_name,username,account_type,is_superuser,is_staff,user_profile;
+    private Integer id;
+    private String email;
+    private String first_name;
+    private String last_name;
+    private Object username;
+    private Boolean account_type;
+    private Boolean is_superuser;
+    private Boolean is_staff;
+    private Boolean user_profile;
 
-    public model(int id, String email, String first_name, String last_name, String username, String account_type, String is_superuser, String is_staff, String user_profile) {
+    public UserDetail(Integer id, String email, String first_name, String last_name, Object username, Boolean account_type, Boolean is_superuser, Boolean is_staff, Boolean user_profile) {
         this.id = id;
         this.email = email;
         this.first_name = first_name;
@@ -17,11 +24,11 @@ public class model {
         this.user_profile = user_profile;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -49,44 +56,43 @@ public class model {
         this.last_name = last_name;
     }
 
-    public String getUsername() {
+    public Object getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(Object username) {
         this.username = username;
     }
 
-    public String getAccount_type() {
+    public Boolean getAccount_type() {
         return account_type;
     }
 
-    public void setAccount_type(String account_type) {
+    public void setAccount_type(Boolean account_type) {
         this.account_type = account_type;
     }
 
-    public String getIs_superuser() {
+    public Boolean getIs_superuser() {
         return is_superuser;
     }
 
-    public void setIs_superuser(String is_superuser) {
+    public void setIs_superuser(Boolean is_superuser) {
         this.is_superuser = is_superuser;
     }
 
-    public String getIs_staff() {
+    public Boolean getIs_staff() {
         return is_staff;
     }
 
-    public void setIs_staff(String is_staff) {
+    public void setIs_staff(Boolean is_staff) {
         this.is_staff = is_staff;
     }
 
-    public String getUser_profile() {
+    public Boolean getUser_profile() {
         return user_profile;
     }
 
-    public void setUser_profile(String user_profile) {
+    public void setUser_profile(Boolean user_profile) {
         this.user_profile = user_profile;
     }
 }
-

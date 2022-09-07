@@ -66,37 +66,44 @@ public class UserProfile extends AppCompatActivity {
             }
         });
 
-        Get();
-
+         Get();
     }
 
     private void Get() {
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(URL_UPDATE)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        myapi api = retrofit.create(myapi.class);
-        Call<model> call = api.getmodels();
-        call.enqueue(new Callback<model>() {
+        RestApi.getField().getProfile()
+        .enqueue(new Callback<Response>() {
             @Override
-            public void onResponse(Call<model> call, Response<model> response) {
-                model data = response.body();
+            public void onResponse(Call<Response> call, Response<Response> response) {
+                if (response.errorBody() == null){
+                    if (response.body().getData.getUserDetail != null){
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (response.body().headers().getDate().getUserDetail() != null)
+                                    first_name.setText(response.body().toString().getUserDetail().getFirstName());
+                                    last_name.setText(response.body().getData().getUserDetail().getFirstName());
+                            }
+                        });
 
-                first_name.append("" +data.getFirst_name()+"\n");
-                last_name.append(""+data.getLast_name()+"\n");
 
+                    }
 
+                }
             }
 
             @Override
-            public void onFailure(Call<model>call, Throwable t) {
+            public void onFailure(Call<Response> call, Throwable t) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                    }
+                });
 
             }
         });
-
     }
+
 
     private void Update() {
         SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
