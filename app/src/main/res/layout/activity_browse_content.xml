@@ -14,30 +14,81 @@
         android:background="@drawable/search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.572"
+        app:layout_constraintHorizontal_bias="0.358"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.053" />
+        app:layout_constraintVertical_bias="0.06" />
+
 
     <Button
-        android:id="@+id/Fetch"
-        android:layout_width="wrap_content"
+        android:id="@+id/ok"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="176dp"
-        android:layout_marginBottom="232dp"
-        android:text="FETCHING"
+        android:background="#8A5757"
+        android:text="ok"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view5" />
+
+
 
     <TextView
-        android:id="@+id/Data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="168dp"
-        android:layout_marginBottom="408dp"
-        android:text="DATA"
-        android:textSize="30sp"
+        android:id="@+id/text_view1"
+        android:layout_width="403dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Search_location"
+        app:layout_constraintVertical_bias="0.083" />
+
+    <TextView
+        android:id="@+id/text_view2"
+        android:layout_width="411dp"
+        android:layout_height="75dp"
+        android:layout_marginEnd="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view1"
+        app:layout_constraintVertical_bias="0.057" />
+
+    <TextView
+        android:id="@+id/text_view3"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view2"
+        app:layout_constraintVertical_bias="0.089" />
+
+
+    <TextView
+        android:id="@+id/text_view4"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="368dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <TextView
+        android:id="@+id/text_view5"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view4"
+        app:layout_constraintVertical_bias="0.134" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,13 +6,13 @@ import retrofit2.http.Field;
 import retrofit2.http.GET;
 
 public interface RestApiInterface {
-
+ // for profile Activity
     @GET("user/profile/")
-    public Call<Response> getProfile();
+    public Call<POJOModels> getProfile();
 
-    //It needs Authorization Token
-    @GET("user/profile/")
-    public Call<Response> getProfile(
-            @Field("first_name") String first_name,
-            @Field("last_name") String last_name);
+    // for Bookshops Activity
+
+    @GET("content/bookshops")
+    public Call<PojoBookshop> getBook();
+
 }

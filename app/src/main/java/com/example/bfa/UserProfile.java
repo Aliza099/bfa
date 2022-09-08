@@ -70,41 +70,22 @@ public class UserProfile extends AppCompatActivity {
     }
 
     private void Get() {
-
-        RestApi.getField().getProfile()
-        .enqueue(new Callback<Response>() {
+        Call<POJOModels> call=RestApi.getClients().getProfile();
+        call.enqueue(new Callback<POJOModels>() {
             @Override
-            public void onResponse(Call<Response> call, Response<Response> response) {
-                if (response.errorBody() == null){
-                    if (response.body().getData.getUserDetail != null){
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (response.body().headers().getDate().getUserDetail() != null)
-                                    first_name.setText(response.body().toString().getUserDetail().getFirstName());
-                                    last_name.setText(response.body().getData().getUserDetail().getFirstName());
-                            }
-                        });
+            public void onResponse(Call<POJOModels> call, Response<POJOModels> response) {
 
+               }
 
-                    }
-
-                }
-            }
 
             @Override
-            public void onFailure(Call<Response> call, Throwable t) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                    }
-                });
+            public void onFailure(Call<POJOModels> call, Throwable t) {
+
 
             }
         });
+
     }
-
-
     private void Update() {
         SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
         String save = preferences.getString("token", "");

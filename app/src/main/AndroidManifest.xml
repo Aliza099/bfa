@@ -14,16 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Bfa">
 
-        // MAP
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-             android:value="AIzaSyB_EKuGkdi_6ywanUWeChtZ0iynkCYNXsY">
 
-        </meta-data>
-
-        <activity
-            android:name=".MapActivity"
-            android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 

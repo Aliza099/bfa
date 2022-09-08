@@ -11,7 +11,31 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestApi {
 
-    public static RestApiInterface getField(){
+//    private static final String url = "https://bfinder-be.herokuapp.com/api/";
+//    private static RestApi clientObject;
+//    private static Retrofit retrofit;
+//
+//    RestApi(){
+//        retrofit = new Retrofit.Builder()
+//                .baseUrl(url)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//    }
+//
+//    public static synchronized RestApi getInstance()
+//    {
+//        if(clientObject==null)
+//            clientObject=new RestApi();
+//        return clientObject;
+//    }
+//    RestApiInterface getApi()
+//    {
+//        return retrofit.create(RestApiInterface.class);
+//    }
+//
+//}
+
+    public static RestApiInterface getClients() {
         Retrofit adapter = new Retrofit.Builder()
                 .baseUrl("https://bfinder-be.herokuapp.com/api/") //Setting the Root URL
                 .addConverterFactory(GsonConverterFactory.create())
@@ -21,7 +45,8 @@ public class RestApi {
         RestApiInterface api = adapter.create(RestApiInterface.class);
         return api;
     }
-    public static RestApiInterface getField(String token) {
+
+    public static RestApiInterface getClients(String token) {
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
         okHttpClientBuilder
                 .addInterceptor(new Interceptor() {
@@ -42,4 +67,10 @@ public class RestApi {
         return api;
     }
 
-}
+
+    }
+
+
+
+
+

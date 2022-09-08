@@ -49,13 +49,6 @@ public class RegisterActivity extends AppCompatActivity {
         // click on listner
 
         btn_Location = findViewById(R.id.btn_Location);
-        btn_Location.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(RegisterActivity.this,MapActivity.class);
-                startActivity(intent);
-            }
-        });
 
 
 
