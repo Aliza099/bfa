@@ -2,11 +2,13 @@ package com.example.bfa;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import PojoModels.PojoBookshop;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,7 +52,9 @@ public class BookshopsActivity extends AppCompatActivity {
     }
 
     private void GetBooks() {
-        Call <PojoBookshop> call=RestApi.getClients().getBook();
+        SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
+        String save = preferences.getString("token","");
+        Call <PojoBookshop> call=RestApi.getClients(save).getBook();
         call.enqueue(new Callback<PojoBookshop>() {
             @Override
             public void onResponse(Call<PojoBookshop> call, Response<PojoBookshop> response) {

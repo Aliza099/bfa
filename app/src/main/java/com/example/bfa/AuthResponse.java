@@ -12,10 +12,9 @@ public class AuthResponse {
     private Integer code;
     private Boolean success;
     @SerializedName("data")
-    @Expose
     private Data data;
 
-    public AuthResponse(Integer code, Boolean success, Data data) {
+    public AuthResponse(Integer code, Boolean success, androidx.work.Data data) {
         this.code = code;
         this.success = success;
         this.data = data;
@@ -37,11 +36,11 @@ public class AuthResponse {
         this.success = success;
     }
 
-    public Data getData() {
+    public androidx.work.Data getData() {
         return data;
     }
 
-    public void setData(Data data) {
+    public void setData(androidx.work.Data data) {
         this.data = data;
     }
 }

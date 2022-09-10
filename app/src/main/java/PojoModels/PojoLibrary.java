@@ -1,16 +1,15 @@
-package com.example.bfa;
+package PojoModels;
 
 import android.media.Image;
 
-public class PojoBookshop {
-
+public class PojoLibrary {
     private String address;
     private String name;
     private Integer phone_no;
     private Integer user;
     private Image logo;
 
-    public PojoBookshop(String address, String name, Integer phone_no, Integer user, Image logo) {
+    public PojoLibrary(String address, String name, Integer phone_no, Integer user, Image logo) {
         this.address = address;
         this.name = name;
         this.phone_no = phone_no;
@@ -58,3 +57,4 @@ public class PojoBookshop {
         this.logo = logo;
     }
 }
+

@@ -17,15 +17,19 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import PojoModels.Update;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserProfile extends AppCompatActivity {
 
@@ -70,21 +74,36 @@ public class UserProfile extends AppCompatActivity {
     }
 
     private void Get() {
-        Call<POJOModels> call=RestApi.getClients().getProfile();
-        call.enqueue(new Callback<POJOModels>() {
+      SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
+        String save = preferences.getString("token","");
+        Call<Update> call=RestApi.getClients(save).getProfile();
+        call.enqueue(new Callback<Update>() {
             @Override
-            public void onResponse(Call<POJOModels> call, Response<POJOModels> response) {
+            public void onResponse(Call<Update> call, Response<Update> response) {
 
-               }
+                private void renderUI(JsonArray){
+                    try {
+                        first_name.setText(new Gson(response.get().toString()).get("First_name").toString());
+                        last_name.setText(new JSONObject(response.get().toString()).get("seller_phone").toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        first_name.setText("Error");
+                        last_name.setText("Error");
 
+                    }
+                }
+
+//                        first_name.setText(response.body().getFirst_name());
+//                        last_name.setText(response.body().getLast_name());
+
+            }
 
             @Override
-            public void onFailure(Call<POJOModels> call, Throwable t) {
-
+            public void onFailure(Call<Update> call, Throwable t) {
+                Toast.makeText(UserProfile.this, "", Toast.LENGTH_SHORT).show();
 
             }
         });
-
     }
     private void Update() {
         SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);

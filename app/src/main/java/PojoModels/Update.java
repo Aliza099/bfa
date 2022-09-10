@@ -1,8 +1,9 @@
-package com.example.bfa;
+package PojoModels;
 
+import android.icu.text.IDNA;
 import android.widget.TextView;
 
-public class POJOModels {
+public class Update {
     private Integer id;
     private String email;
     private String first_name;
@@ -15,7 +16,7 @@ public class POJOModels {
 
 
 
-    public POJOModels(Integer id, String email, String first_name, String last_name, Object username, Boolean account_type, Boolean is_superuser, Boolean is_staff, Boolean user_profile) {
+    public Update(Integer id, String email, String first_name, String last_name, Object username, Boolean account_type, Boolean is_superuser, Boolean is_staff, Boolean user_profile) {
         this.id = id;
         this.email = email;
         this.first_name = first_name;
