@@ -17,7 +17,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 
 import org.json.JSONException;
@@ -31,7 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UserProfile extends AppCompatActivity {
+public class UserProfileActivity extends AppCompatActivity {
 
     private TextView move;
     private Button btn_update;
@@ -57,7 +56,7 @@ public class UserProfile extends AppCompatActivity {
         move.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(UserProfile.this, ChangePassword.class);
+                Intent intent = new Intent(UserProfileActivity.this, ChangePassword.class);
                 startActivity(intent);
             }
         });
@@ -71,43 +70,53 @@ public class UserProfile extends AppCompatActivity {
         });
 
          Get();
+
     }
 
     private void Get() {
       SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
-        String save = preferences.getString("token","");
-        Call<Update> call=RestApi.getClients(save).getProfile();
+        String token = preferences.getString("token","");
+        Call<Update> call=RestApi.getClients(token).getProfile();
         call.enqueue(new Callback<Update>() {
             @Override
             public void onResponse(Call<Update> call, Response<Update> response) {
-
-                private void renderUI(JsonArray){
-                    try {
-                        first_name.setText(new Gson(response.get().toString()).get("First_name").toString());
-                        last_name.setText(new JSONObject(response.get().toString()).get("seller_phone").toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        first_name.setText("Error");
-                        last_name.setText("Error");
-
-                    }
-                }
-
 //                        first_name.setText(response.body().getFirst_name());
 //                        last_name.setText(response.body().getLast_name());
+                if(response.errorBody() == null){
+                    if(response.body() != null){
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                renderUI(response.body());
+                            }
+                        });
+                    }
+                }
 
             }
 
             @Override
             public void onFailure(Call<Update> call, Throwable t) {
-                Toast.makeText(UserProfile.this, "", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserProfileActivity.this, "", Toast.LENGTH_SHORT).show();
 
             }
         });
     }
+
+    private void renderUI(Update object){
+        try {
+            first_name.setText(object.getFirst_name());
+            last_name.setText(object.getLast_name());
+        } catch (Exception e) {
+            first_name.setText("Error");
+            last_name.setText("Error");
+
+        }
+    }
+
     private void Update() {
         SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
-        String save = preferences.getString("token", "");
+        String token = preferences.getString("token", "");
 
         loading.setVisibility(View.VISIBLE);
         btn_update.setVisibility(View.GONE);
@@ -122,7 +131,7 @@ public class UserProfile extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
 
-                        Toast.makeText(UserProfile.this, "Send", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UserProfileActivity.this, "Send", Toast.LENGTH_SHORT).show();
                         loading.setVisibility(View.GONE);
                         btn_update.setVisibility(View.VISIBLE);
 
@@ -132,7 +141,7 @@ public class UserProfile extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                Toast.makeText(UserProfile.this, error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserProfileActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
                 loading.setVisibility(View.GONE);
                 btn_update.setVisibility(View.VISIBLE);
 
@@ -152,7 +161,7 @@ public class UserProfile extends AppCompatActivity {
             }
 
             SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
-            String save = preferences.getString("token", "");
+            String token = preferences.getString("token", "");
 
 
             // Headers
@@ -160,7 +169,7 @@ public class UserProfile extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headerMap = new HashMap<String, String>();
                 // headerMap.put("Content-Type", "application/json");
-                headerMap.put("Authorization", save);
+                headerMap.put("Authorization", token);
                 return headerMap;
             }
 
@@ -181,7 +190,7 @@ public class UserProfile extends AppCompatActivity {
 ////        DataClass dataClass = gson.fromJson(data, DataClass.class);
 //
 //        SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
-//        String save = preferences.getString("token", "");
+//        String token = preferences.getString("token", "");
 //
 //        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_UPDATE,
 //                new Response.Listener<String>() {
@@ -203,7 +212,7 @@ public class UserProfile extends AppCompatActivity {
 //            public Map<String, String> getHeaders() throws AuthFailureError {
 //                Map<String, String> headerMap = new HashMap<String, String>();
 //                headerMap.put("Content-Type", "application/json");
-//                headerMap.put("Authorization", save);
+//                headerMap.put("Authorization", token);
 //                return headerMap;
 //            }
 //

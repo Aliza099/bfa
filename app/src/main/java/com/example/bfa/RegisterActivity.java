@@ -66,7 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
     private void Signup(){
 
         SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
-        String save = preferences.getString("token","");
+        String token = preferences.getString("token","");
 
         loading.setVisibility(View.VISIBLE);
         btn_signup.setVisibility(View.GONE);

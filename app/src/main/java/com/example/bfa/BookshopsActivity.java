@@ -23,7 +23,6 @@ public class BookshopsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookshops);
 
-
         image1 = findViewById(R.id.image1);
         image2 = findViewById(R.id.image2);
         image3 = findViewById(R.id.image3);
@@ -39,7 +38,6 @@ public class BookshopsActivity extends AppCompatActivity {
 
         GetBooks();
 
-
          // click on listner on arrow
         // for move previous activity
         backBtn = findViewById(R.id.back6);
@@ -53,8 +51,8 @@ public class BookshopsActivity extends AppCompatActivity {
 
     private void GetBooks() {
         SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
-        String save = preferences.getString("token","");
-        Call <PojoBookshop> call=RestApi.getClients(save).getBook();
+        String token = preferences.getString("token","");
+        Call <PojoBookshop> call=RestApi.getClients(token).getBook();
         call.enqueue(new Callback<PojoBookshop>() {
             @Override
             public void onResponse(Call<PojoBookshop> call, Response<PojoBookshop> response) {

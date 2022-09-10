@@ -49,7 +49,7 @@ public class ChangePassword extends AppCompatActivity {
 
     private void Change() {
         SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
-        String save = preferences.getString("token","");
+        String token = preferences.getString("token","");
 
         loading.setVisibility(View.VISIBLE);
         btn_confirm.setVisibility(View.GONE);
@@ -88,13 +88,13 @@ public class ChangePassword extends AppCompatActivity {
             }
 
             SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
-            String save = preferences.getString("token","");
+            String token = preferences.getString("token","");
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headerMap = new HashMap<String, String>();
                // headerMap.put("Content-Type", "application/json");
-                headerMap.put("Authorization",  save);
+                headerMap.put("Authorization",  token);
                 return headerMap;
             }
         };

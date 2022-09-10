@@ -56,8 +56,8 @@ public class LibraryActivity extends AppCompatActivity {
 
     private void GetLibrary() {
         SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
-        String save = preferences.getString("token","");
-        Call<PojoLibrary> call=RestApi.getClients(save).getLibrary();
+        String token = preferences.getString("token","");
+        Call<PojoLibrary> call=RestApi.getClients(token).getLibrary();
         call.enqueue(new Callback<PojoLibrary>() {
             @Override
             public void onResponse(Call<PojoLibrary> call, Response<PojoLibrary> response) {
