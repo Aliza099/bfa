@@ -74,7 +74,7 @@
             android:name=".ChangePassword"
             android:exported="false" />
         <activity
-            android:name=".UserProfile"
+            android:name=".UserProfileActivity"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"

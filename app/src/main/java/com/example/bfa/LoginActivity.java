@@ -106,12 +106,11 @@ public class LoginActivity extends AppCompatActivity {
                             // shared prefrences for access token
                             // common
                             SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
-                            // change save
+                            // change token
                             preferences.edit().putString("token", accessToken).commit();
                             // chng get
-                            String save = preferences.getString("token", "");
                             Toast.makeText(LoginActivity.this, "Login successfully!", Toast.LENGTH_SHORT).show();
-                            // Toast.makeText(LoginActivity.this,save, Toast.LENGTH_SHORT).show();
+                            // Toast.makeText(LoginActivity.this,token, Toast.LENGTH_SHORT).show();
 
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(intent);

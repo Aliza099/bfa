@@ -9,7 +9,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -131,7 +130,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
                 break;
             case R.id.nav_profile:
-                Intent intent1 = new Intent(HomeActivity.this,UserProfile.class);
+                Intent intent1 = new Intent(HomeActivity.this, UserProfileActivity.class);
                 startActivity(intent1);
                 break;
             case R.id.nav_favourite:

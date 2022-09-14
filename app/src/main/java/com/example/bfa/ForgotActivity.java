@@ -62,7 +62,7 @@ public class ForgotActivity extends AppCompatActivity {
 
     private void Select() {
         SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
-        String save = preferences.getString("token", "");
+        String token = preferences.getString("token", "");
 
         loading.setVisibility(View.VISIBLE);
         btn_next_otp.setVisibility(View.GONE);

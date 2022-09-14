@@ -46,14 +46,14 @@ public class RestApi {
         return api;
     }
 
-    public static RestApiInterface getClients(String save) {
+    public static RestApiInterface getClients(String token) {
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
         okHttpClientBuilder
                 .addInterceptor(new Interceptor() {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
                         Request request = chain.request();
-                        Request.Builder newRequest = request.newBuilder().header("Authorization", save);
+                        Request.Builder newRequest = request.newBuilder().header("Authorization", token);
                         return chain.proceed(newRequest.build());
 
                     }
