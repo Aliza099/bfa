@@ -3,13 +3,20 @@ package com.example.bfa;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class WriterActivity extends AppCompatActivity {
     private Button btn1,btn2,btn3,btn4;
+    TextView name,name1,name2,name3;
     ImageView backBtn;
 
     @Override
@@ -63,5 +70,30 @@ public class WriterActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        name = findViewById(R.id.name);
+        name1 = findViewById(R.id.name1);
+        name2 = findViewById(R.id.name2);
+        name3 = findViewById(R.id.name3);
+
+        GetWriter();
+    }
+
+    private void GetWriter() {
+        SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
+        String save = preferences.getString("token","");
+        Call<PojoWriters> call=RestApi.getClients(save).getWriter();
+        call.enqueue(new Callback<PojoWriters>() {
+            @Override
+            public void onResponse(Call<PojoWriters> call, Response<PojoWriters> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<PojoWriters> call, Throwable t) {
+
+            }
+        });
+
     }
 }

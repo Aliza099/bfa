@@ -1,103 +1,46 @@
 package PojoModels;
 
-import android.icu.text.IDNA;
-import android.widget.TextView;
+
+import com.example.bfa.Data;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+
 
 public class Update {
-    private Integer id;
-    private String email;
-    private String first_name;
-    private String last_name;
-    private Object username;
-    private Boolean account_type;
-    private Boolean is_superuser;
-    private Boolean is_staff;
-    private Boolean user_profile;
 
+    @SerializedName("code")
+    @Expose
+    private Integer code;
+    @SerializedName("success")
+    @Expose
+    private Boolean success;
+    @SerializedName("data")
+    @Expose
+    private Data data;
 
-
-    public Update(Integer id, String email, String first_name, String last_name, Object username, Boolean account_type, Boolean is_superuser, Boolean is_staff, Boolean user_profile) {
-        this.id = id;
-        this.email = email;
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.username = username;
-        this.account_type = account_type;
-        this.is_superuser = is_superuser;
-        this.is_staff = is_staff;
-        this.user_profile = user_profile;
+    public Integer getCode() {
+        return code;
     }
 
-    public Integer getId() {
-        return id;
+    public void setCode(Integer code) {
+        this.code = code;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public Boolean getSuccess() {
+        return success;
     }
 
-    public String getEmail() {
-        return email;
+    public void setSuccess(Boolean success) {
+        this.success = success;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public Data getData() {
+        return data;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public void setData(Data data) {
+        this.data = data;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
-    }
-
-    public String getLast_name() {
-        return last_name;
-    }
-
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
-    }
-
-    public Object getUsername() {
-        return username;
-    }
-
-    public void setUsername(Object username) {
-        this.username = username;
-    }
-
-    public Boolean getAccount_type() {
-        return account_type;
-    }
-
-    public void setAccount_type(Boolean account_type) {
-        this.account_type = account_type;
-    }
-
-    public Boolean getIs_superuser() {
-        return is_superuser;
-    }
-
-    public void setIs_superuser(Boolean is_superuser) {
-        this.is_superuser = is_superuser;
-    }
-
-    public Boolean getIs_staff() {
-        return is_staff;
-    }
-
-    public void setIs_staff(Boolean is_staff) {
-        this.is_staff = is_staff;
-    }
-
-    public Boolean getUser_profile() {
-        return user_profile;
-    }
-
-    public void setUser_profile(Boolean user_profile) {
-        this.user_profile = user_profile;
-    }
 }
-

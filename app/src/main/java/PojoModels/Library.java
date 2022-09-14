@@ -10,7 +10,7 @@ import java.util.List;
 
 
 
-public class PojoBookshop {
+public class Library {
 
     @SerializedName("code")
     @Expose

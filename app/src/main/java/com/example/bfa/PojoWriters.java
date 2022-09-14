@@ -1,17 +1,11 @@
-package PojoModels;
+package com.example.bfa;
 
-import android.media.Image;
-
-import com.example.bfa.Datum;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-
-
-public class PojoBookshop {
-
+public class PojoWriters {
     @SerializedName("code")
     @Expose
     private Integer code;
@@ -20,7 +14,7 @@ public class PojoBookshop {
     private Boolean success;
     @SerializedName("data")
     @Expose
-    private List<Datum> data = null;
+    private List<Object> data = null;
 
     public Integer getCode() {
         return code;
@@ -38,12 +32,13 @@ public class PojoBookshop {
         this.success = success;
     }
 
-    public List<Datum> getData() {
+    public List<Object> getData() {
         return data;
     }
 
-    public void setData(List<Datum> data) {
+    public void setData(List<Object> data) {
         this.data = data;
     }
 
 }
+

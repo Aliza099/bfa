@@ -80,31 +80,42 @@ public class UserProfile extends AppCompatActivity {
         call.enqueue(new Callback<Update>() {
             @Override
             public void onResponse(Call<Update> call, Response<Update> response) {
+                if (response.errorBody() == null) {
+                    if (response.body() != null) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                renderUI(response.body());
+                            }
+                        });
+                    }
 
-                private void renderUI(JsonArray){
+                }
+
+            }
+
+//                        first_name.setText(response.body().getFirst_name());
+//                        last_name.setText(response.body().getLast_name());
+
+
+            @Override
+            public void onFailure(Call<Update> call, Throwable t) {
+                Toast.makeText(UserProfile.this, "", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+                private void renderUI(Update object){
                     try {
-                        first_name.setText(new Gson(response.get().toString()).get("First_name").toString());
-                        last_name.setText(new JSONObject(response.get().toString()).get("seller_phone").toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        first_name.setText(object.getData().getFirstName());
+                        last_name.setText(object.getData().getLastName());
+                    } catch (Exception e) {
                         first_name.setText("Error");
                         last_name.setText("Error");
 
                     }
                 }
 
-//                        first_name.setText(response.body().getFirst_name());
-//                        last_name.setText(response.body().getLast_name());
 
-            }
-
-            @Override
-            public void onFailure(Call<Update> call, Throwable t) {
-                Toast.makeText(UserProfile.this, "", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-    }
     private void Update() {
         SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
         String save = preferences.getString("token", "");

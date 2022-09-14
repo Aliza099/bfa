@@ -1,7 +1,11 @@
 package com.example.bfa;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -10,15 +14,26 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
-import PojoModels.PojoLibrary;
+import java.util.ArrayList;
+import java.util.List;
+
+import PojoModels.Library;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LibraryActivity extends AppCompatActivity {
+public class LibraryActivity extends AppCompatActivity  {
 
     ImageView logo1,logo2,logo3,logo4;
     TextView name1,name2,name3,name4,address1,address2,address3,address4;
+    List<Library> items = new ArrayList<Library>();
+    LibraryAdapter myAdapter;
+    RecyclerView recyclerView;
+
+    public static void start(Context context) {
+        Intent intent = new Intent(context, LibraryAdapter.class);
+        context.startActivity(intent);
+    }
 
     ImageView backBtn;
 
@@ -26,6 +41,12 @@ public class LibraryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_library);
+
+        myAdapter = new LibraryAdapter(items);
+        recyclerView = findViewById(R.id.recyclerView);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setAdapter(myAdapter);
+        recyclerView.setLayoutManager(layoutManager);
 
         // click on listner on arrow
         // for move previous activity
@@ -38,18 +59,6 @@ public class LibraryActivity extends AppCompatActivity {
             }
         });
 
-        logo1 = findViewById(R.id.logo1);
-        logo2 = findViewById(R.id.logo2);
-        logo3 = findViewById(R.id.logo3);
-        logo4 = findViewById(R.id.logo4);
-        name1 = findViewById(R.id.name1);
-        name2 = findViewById(R.id.name2);
-        name3 = findViewById(R.id.name3);
-        name4 = findViewById(R.id.name4);
-        address1 = findViewById(R.id.address1);
-        address2 = findViewById(R.id.address2);
-        address3 = findViewById(R.id.address3);
-        address4 = findViewById(R.id.address4);
 
         GetLibrary();
     }
@@ -57,17 +66,41 @@ public class LibraryActivity extends AppCompatActivity {
     private void GetLibrary() {
         SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
         String save = preferences.getString("token","");
-        Call<PojoLibrary> call=RestApi.getClients(save).getLibrary();
-        call.enqueue(new Callback<PojoLibrary>() {
+        Call<Library> call=RestApi.getClients(save).getLibrary();
+        call.enqueue(new Callback<Library>() {
             @Override
-            public void onResponse(Call<PojoLibrary> call, Response<PojoLibrary> response) {
-
+            public void onResponse(Call<Library> call, Response<Library> response) {
+                if(response.errorBody() == null){
+                    if(response.body() != null){
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                renderUI(response.body());
+                            }
+                        });
+                    }
+                }
             }
 
             @Override
-            public void onFailure(Call<PojoLibrary> call, Throwable t) {
+            public void onFailure(Call<Library> call, Throwable t) {
 
             }
         });
     }
-}
+
+    private void renderUI(Library body) {
+
+        //
+    }
+
+
+//    @Override
+//    public void onItemClick(int position) {
+//
+//    }
+//
+//    @Override
+//    public boolean onItemLongClick(int position) {
+//        return false;
+    }
