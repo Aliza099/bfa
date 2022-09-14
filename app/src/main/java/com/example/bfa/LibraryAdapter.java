@@ -38,8 +38,8 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull LibraryAdapter.MyViewHolder holder, int position) {
-        holder.name1.setText(items.get(position).getData().get(0).getName());
-        holder.address1.setText(items.get(position).getData().get(0).getAddress());
+        holder.name1.setText(items.get(position).getData().get(position).getName());
+        holder.address1.setText(items.get(position).getData().get(position).getAddress());
 
     }
 

@@ -75,7 +75,7 @@ public class LibraryActivity extends AppCompatActivity  {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                renderUI(response.body());
+                                myAdapter.items.get(0).getData();
                             }
                         });
                     }
@@ -89,10 +89,6 @@ public class LibraryActivity extends AppCompatActivity  {
         });
     }
 
-    private void renderUI(Library body) {
-
-        //
-    }
 
 
 //    @Override
