@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_margin="10dp"
     app:cardCornerRadius="8dp"
-    app:cardPreventCornerOverlap="true"
-    android:layout_height="wrap_content">
+    app:cardPreventCornerOverlap="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:background="@drawable/round_bk2"
+        android:background="@drawable/round_bk5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -29,7 +28,7 @@
             android:id="@+id/name1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           android:layout_marginLeft="40dp"
+            android:layout_marginLeft="40dp"
             android:layout_marginTop="70dp"
             android:gravity="center"
             android:fontFamily="@font/baloo"
@@ -42,6 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerVertical="true"
+            android:textColor="@color/black"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="10dp"
             android:text="Paris Road Sialkot"
@@ -52,15 +52,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:textColor="@color/black"
             android:layout_centerVertical="true"
-            android:layout_marginBottom="10dp"
             android:layout_marginLeft="220dp"
+            android:layout_marginBottom="10dp"
             android:text="+92000000000"
             android:textSize="15sp" />
 
 
 
     </RelativeLayout>
-
 
 </androidx.cardview.widget.CardView>

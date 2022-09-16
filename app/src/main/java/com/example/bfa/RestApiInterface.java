@@ -1,8 +1,9 @@
 package com.example.bfa;
 
+import PojoModels.Bookshops;
 import PojoModels.Library;
-import PojoModels.PojoBookshop;
 import PojoModels.Update;
+import PojoModels.Writer;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
@@ -14,12 +15,15 @@ public interface RestApiInterface {
     // for Bookshops Activity
 
     @GET("content/bookshops")
-    public Call<PojoBookshop> getBook();
+    public Call<Bookshops> getBook();
 
     @GET("content/libraries")
     public Call<Library> getLibrary();
 
     @GET("content/writers")
-   public Call<PojoWriters> getWriter();
+   public Call<Writer> getWriter();
+
+
+
 
 }

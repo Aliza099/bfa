@@ -12,8 +12,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,16 +20,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LibraryActivity extends AppCompatActivity  {
+public class LibraryActivity extends AppCompatActivity implements LibraryAdapter.MyViewHolder.itemClickListener,
+        LibraryAdapter.MyViewHolder.itemLongClickListener {
 
-    ImageView logo1,logo2,logo3,logo4;
-    TextView name1,name2,name3,name4,address1,address2,address3,address4;
+
+
     List<Library> items = new ArrayList<Library>();
     LibraryAdapter myAdapter;
     RecyclerView recyclerView;
 
     public static void start(Context context) {
-        Intent intent = new Intent(context, LibraryAdapter.class);
+        Intent intent = new Intent(context, LibraryActivity.class);
         context.startActivity(intent);
     }
 
@@ -42,7 +41,7 @@ public class LibraryActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_library);
 
-        myAdapter = new LibraryAdapter(items);
+        myAdapter = new LibraryAdapter(items, this, this);
         recyclerView = findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setAdapter(myAdapter);
@@ -65,17 +64,17 @@ public class LibraryActivity extends AppCompatActivity  {
 
     private void GetLibrary() {
         SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
-        String save = preferences.getString("token","");
-        Call<Library> call=RestApi.getClients(save).getLibrary();
+        String token = preferences.getString("token", "");
+        Call<Library> call = RestApi.getClients(token).getLibrary();
         call.enqueue(new Callback<Library>() {
             @Override
             public void onResponse(Call<Library> call, Response<Library> response) {
-                if(response.errorBody() == null){
-                    if(response.body() != null){
+                if (response.errorBody() == null) {
+                    if (response.body() != null) {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                myAdapter.items.get(0).getData();
+                                myAdapter.setItems(response.body().getData());
                             }
                         });
                     }
@@ -89,6 +88,16 @@ public class LibraryActivity extends AppCompatActivity  {
         });
     }
 
+    @Override
+    public void onItemClick(int position) {
+
+    }
+
+    @Override
+    public boolean onItemLongClick(int position) {
+        return false;
+    }
+}
 
 
 //    @Override
@@ -99,4 +108,4 @@ public class LibraryActivity extends AppCompatActivity  {
 //    @Override
 //    public boolean onItemLongClick(int position) {
 //        return false;
-    }
+

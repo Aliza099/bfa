@@ -1,7 +1,5 @@
 package PojoModels;
 
-import android.media.Image;
-
 import com.example.bfa.Datum;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

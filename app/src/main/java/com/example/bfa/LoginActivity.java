@@ -109,6 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                             // change token
                             preferences.edit().putString("token", accessToken).commit();
                             // chng get
+                            String user = preferences.getString("token","");
                             Toast.makeText(LoginActivity.this, "Login successfully!", Toast.LENGTH_SHORT).show();
                             // Toast.makeText(LoginActivity.this,token, Toast.LENGTH_SHORT).show();
 
