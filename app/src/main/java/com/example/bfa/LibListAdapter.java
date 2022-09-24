@@ -11,48 +11,47 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class BookshopAdapter extends RecyclerView.Adapter<BookshopAdapter.MyViewHolder> {
+public class LibListAdapter extends RecyclerView.Adapter<LibListAdapter.MyViewHolder> {
     int a=0;
-    List<DatumCardList> items;
+    List<DatumBookList> items;
     private MyViewHolder.itemClickListener ICL;
     private MyViewHolder.itemLongClickListener ILCL;
 
-    public BookshopAdapter(List items, MyViewHolder.itemClickListener ICL, MyViewHolder.itemLongClickListener ILCL) {
+    public LibListAdapter(List items, MyViewHolder.itemClickListener ICL, MyViewHolder.itemLongClickListener ILCL) {
         this.items = items;
         this.ICL=ICL;
         this.ILCL=ILCL;
     }
 
-    public void setItems(List<DatumCardList> list){
+    public void setItems(List<DatumBookList> list){
         this.items = list;
         notifyDataSetChanged();
-    }
-
-    public List<DatumCardList> getItems(){
-
-        return this.items;
     }
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater= LayoutInflater.from(parent.getContext());
-        View view =layoutInflater.inflate(R.layout.singlelibrary,parent,false);
+        View view =layoutInflater.inflate(R.layout.forbooks,parent,false);
         //view.setOnClickListener(new myOnClickListener());
         return new MyViewHolder(view,ICL,ILCL );
     }
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.name1.setText(items.get(position).getName());
-        holder.address1.setText(items.get(position).getAddress());
+        holder.title.setText(items.get(position).getTitle());
+        holder.author.setText(items.get(position).getAuthor());
     }
+
+
+
     @Override
     public int getItemCount() {
         return items.size();
     }
+
     static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener {
-        TextView name1;
-        TextView address1;
-        ImageView image1;
+        TextView title;
+        TextView author;
+        ImageView image;
 
         itemLongClickListener ILCL;
         itemClickListener ICL;
@@ -64,11 +63,13 @@ public class BookshopAdapter extends RecyclerView.Adapter<BookshopAdapter.MyView
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
 
-            name1=itemView.findViewById(R.id.name1);
-            address1=itemView.findViewById(R.id.address1);
+            title=itemView.findViewById(R.id.title);
+            author=itemView.findViewById(R.id.author);
+            image=itemView.findViewById(R.id.image);
 
 
         }
+
         @Override
         public void onClick(View v) {
             ICL.onItemClick(getAdapterPosition());
@@ -86,5 +87,4 @@ public class BookshopAdapter extends RecyclerView.Adapter<BookshopAdapter.MyView
             boolean onItemLongClick(int position);
         }
     }
-
 }

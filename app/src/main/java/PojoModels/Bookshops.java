@@ -1,7 +1,7 @@
 package PojoModels;
 
 
-import com.example.bfa.Datum;
+import com.example.bfa.DatumCardList;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -17,7 +17,7 @@ public class Bookshops {
         private Boolean success;
         @SerializedName("data")
         @Expose
-        private List<Datum> data = null;
+        private List<DatumCardList> data = null;
 
         public Integer getCode() {
             return code;
@@ -35,11 +35,11 @@ public class Bookshops {
             this.success = success;
         }
 
-        public List<Datum> getData() {
+        public List<DatumCardList> getData() {
             return data;
         }
 
-        public void setData(List<Datum> data) {
+        public void setData(List<DatumCardList> data) {
             this.data = data;
         }
 

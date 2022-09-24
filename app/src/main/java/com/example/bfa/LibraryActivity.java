@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +24,7 @@ public class LibraryActivity extends AppCompatActivity implements LibraryAdapter
 
 
 
-    List<Library> items = new ArrayList<Library>();
+    List<DatumCardList> items = new ArrayList<DatumCardList>();
     LibraryAdapter myAdapter;
     RecyclerView recyclerView;
 
@@ -64,7 +63,7 @@ public class LibraryActivity extends AppCompatActivity implements LibraryAdapter
 
     private void GetLibrary() {
         SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
-        String token = preferences.getString("token", "");
+        String token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY0MDMzMTA1LCJpYXQiOjE2NjM5NDY3MDUsImp0aSI6Ijk4NDk5MzJmY2FkNzRhYTJiMWNkYmZkYjc1MDVjNjE5IiwidXNlcl9pZCI6MzZ9.6VPNZ3WD_ZGg0fdWDoVA1tR7PwyG7k9OEOYBQUy5xMg";//preferences.getString("token", "");
         Call<Library> call = RestApi.getClients(token).getLibrary();
         call.enqueue(new Callback<Library>() {
             @Override
@@ -74,6 +73,7 @@ public class LibraryActivity extends AppCompatActivity implements LibraryAdapter
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+
                                 myAdapter.setItems(response.body().getData());
                             }
                         });
@@ -82,7 +82,8 @@ public class LibraryActivity extends AppCompatActivity implements LibraryAdapter
             }
 
             @Override
-            public void onFailure(Call<Library> call, Throwable t) {
+            public void onFailure(Call<Library> call, Throwable t)
+            {
 
             }
         });
@@ -90,7 +91,13 @@ public class LibraryActivity extends AppCompatActivity implements LibraryAdapter
 
     @Override
     public void onItemClick(int position) {
+        Intent intent = new Intent(LibraryActivity.this,LibListActivity.class);
+        if(myAdapter != null && myAdapter.getItems() != null && myAdapter.getItems().size() > position){
 
+            String url = "content/libraries/"+ myAdapter.getItems().get(position).getId();
+            intent.putExtra("Url",url);
+            startActivity(intent);
+        }
     }
 
     @Override

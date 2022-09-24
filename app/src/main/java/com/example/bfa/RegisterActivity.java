@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
     private ImageView curve,google,facebook,twitter;
     private TextView register,methods;
     private EditText email,password,confirmation_password,first_name,last_name;
-    private Button btn_signup,btn_Location;
+    private Button btn_signup,btn_extra;
     private ProgressBar loading;
     private static String URL_SIGNUP = "https://bfinder-be.herokuapp.com/api/user/register";
 
@@ -46,9 +47,14 @@ public class RegisterActivity extends AppCompatActivity {
         last_name = findViewById(R.id.last_name);
         btn_signup = findViewById(R.id.btn_signup);
 
-        // click on listner
 
-        btn_Location = findViewById(R.id.btn_Location);
+
+
+        // click on listner
+        btn_extra = findViewById(R.id.btn_extra);
+
+
+
 
 
 
@@ -57,10 +63,13 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Signup();
+
+
             }
         });
 
     }
+
 
     // Post Api for Register
     private void Signup(){
@@ -76,6 +85,8 @@ public class RegisterActivity extends AppCompatActivity {
         final String confirmation_password = this.confirmation_password.getText().toString().trim();
         final String first_name = this.first_name.getText().toString().trim();
         final String last_name= this.last_name.getText().toString().trim();
+
+
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_SIGNUP,
                 new Response.Listener<String>() {

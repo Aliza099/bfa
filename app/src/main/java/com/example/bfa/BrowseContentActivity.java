@@ -1,55 +1,83 @@
 package com.example.bfa;
 
-import static androidx.constraintlayout.motion.widget.Debug.getLocation;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationManager;
-import android.location.LocationRequest;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Looper;
-import android.text.Html;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
-public class BrowseContentActivity extends AppCompatActivity {
+import PojoModels.Browse;
+import PojoModels.BrowseChip;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class BrowseContentActivity extends AppCompatActivity
+        implements BrowseAdapter.MyViewHolder.itemClickListener,
+        BrowseAdapter.MyViewHolder.itemLongClickListener{
+
+
+    // for chips show
+    private ChipGroup chip_group;
+    private ProgressDialog progressDialog;
+    String chipData;
+
+    // for List show
+    List<Response> items = new ArrayList<Response>();
+    BrowseAdapter myAdapter;
+    RecyclerView recyclerView;
+
+    public static void start(Context context) {
+        Intent intent = new Intent(context, BrowseContentActivity.class);
+        context.startActivity(intent);
+    }
+
+
+
+
+    // for Location Access
     public static final int REQUEST_CODE_PERMISSIONS = 101;
     Button ok;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_content);
+
+
+        progressDialog = new ProgressDialog(this);
+        chip_group = findViewById(R.id.chip_group);
+
+        GetChip();
+
+
+        // fo
+
+        // for list Show
+        myAdapter = new BrowseAdapter(items, this,this);
+        recyclerView = findViewById(R.id.recyclerView);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setAdapter(myAdapter);
+        recyclerView.setLayoutManager(layoutManager);
+
+        GetBooks();
 
 //        ok = findViewById(R.id.ok);
 
@@ -64,6 +92,86 @@ public class BrowseContentActivity extends AppCompatActivity {
 //        });
 
     }
+
+    private void GetChip() {
+        progressDialog. setMessage("Loading...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
+        String token = preferences.getString("token", "");
+        Call<BrowseChip> call = RestApi.getClients(token).getBrowseChip();
+        call.enqueue(new Callback<BrowseChip>() {
+            @Override
+            public void onResponse(Call<BrowseChip> call, Response<BrowseChip> response) {
+                progressDialog.dismiss();
+                if (response.errorBody() == null) {
+                    if (response.body() != null) {
+                        BrowseChip browseChip = response.body();
+                       // for (int i = 0; i< browseChip.size(); i++) ;
+                        {
+                            Chip chip = new Chip(BrowseContentActivity.this);
+                            chipData = browseChip.getData().get(0).getName();
+                            chip.setText(chipData);
+                            chip.setCheckable(true);
+                            chip.setClickable(true);
+                            chip_group.addView(chip);
+                        }
+                        chip_group.setVisibility(View.VISIBLE);
+
+                    }
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<BrowseChip> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(BrowseContentActivity.this,t.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+    private void GetBooks() {
+
+        SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
+        String token = preferences.getString("token", "");
+        Call<Browse> call = RestApi.getClients(token).getBrowseList();
+        call.enqueue(new Callback<Browse>() {
+            @Override
+            public void onResponse(Call<Browse> call, Response<Browse> response) {
+                if(response.errorBody() == null){
+                    if(response.body() != null){
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                myAdapter.setItems(response.body().getData());
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Browse> call, Throwable t) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onItemClick(int position) {
+
+    }
+
+    @Override
+    public boolean onItemLongClick(int position) {
+        return false;
+    }
+
+
+    // for Location Permission
 
     private void requestLocationPermission() {
 

@@ -24,7 +24,7 @@ public class WriterActivity extends AppCompatActivity
         implements WriterAdapter.MyViewHolder.itemClickListener,
         WriterAdapter.MyViewHolder.itemLongClickListener{
 
-    List<Datum> items = new ArrayList<Datum>();
+    List<DatumCardList> items = new ArrayList<DatumCardList>();
     WriterAdapter myAdapter;
     RecyclerView recyclerView;
 
@@ -102,7 +102,13 @@ public class WriterActivity extends AppCompatActivity
 
     @Override
     public void onItemClick(int position) {
-        //Open Hospital detail
+        Intent intent = new Intent(WriterActivity.this,LibListActivity.class);
+        if(myAdapter != null && myAdapter.getItems() != null && myAdapter.getItems().size() > position){
+
+            String url = "content/writers/"+ myAdapter.getItems().get(position).getId();
+            intent.putExtra("Url",url);
+            startActivity(intent);
+        }
     }
 
     @Override

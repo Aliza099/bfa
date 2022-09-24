@@ -5,27 +5,107 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.icu.util.ULocale;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.android.material.textfield.TextInputLayout;
+
+import java.nio.file.Path;
+import java.util.Locale;
+
+import PojoModels.BrowseChip;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UploadActivity extends AppCompatActivity {
     ImageView backBtn;
+    AutoCompleteTextView auto_C;
+    TextInputLayout Category;
+    String CategoryData;
+//    String[] items = {"soft", "hard"};
+//    String[] itemG = {"programming"};
+//    public AutoCompleteTextView auto_C;
+//    AutoCompleteTextView auto_G;
+//
+//    ArrayAdapter<String> adapterItems;
+//    ArrayAdapter<String> adapterItemG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
 
-        // click on listner on arrow
-        // for move previous activity
-        backBtn = findViewById(R.id.back1);
+        auto_C = findViewById(R.id.auto_C);
+        Category = findViewById(R.id.Category);
+
+        GetCategory();
+
+        backBtn = findViewById(R.id.back);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 UploadActivity.super.onBackPressed();
+            }
+        });
+
+//    auto_C = findViewById(R.id.auto_C);
+//        adapterItems = new ArrayAdapter<String>(this,R.layout.list_items,items);
+//        auto_C.setAdapter(adapterItems);
+//
+//        auto_G = findViewById(R.id.auto_G);
+//        adapterItemG = new ArrayAdapter<String>(this,R.layout.list_items,itemG);
+//        auto_G.setAdapter(adapterItemG);
+
+//
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+//                android.R.layout.simple_spinner_item, items);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinner_c.setAdapter(adapter);
+
+
+//         click on listner on arrow
+//         for move previous activity
+//        backBtn = findViewById(R.id.back1);
+//        backBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                UploadActivity.super.onBackPressed();
+//            }
+//        });
+    }
+
+    private void GetCategory() {
+        SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
+        String token = preferences.getString("token", "");
+        Call<BrowseChip> call = RestApi.getClients(token).getBrowseChip();
+        call.enqueue(new Callback<BrowseChip>() {
+            @Override
+            public void onResponse(Call<BrowseChip> call, Response<BrowseChip> response) {
+                if(response.errorBody() == null){
+                    if(response.body() != null){
+                        BrowseChip browseChip = response.body();
+                        AutoCompleteTextView autoCompleteTextView = new AutoCompleteTextView(UploadActivity.this);
+                        CategoryData = browseChip.getData().get(0).getName();
+                        auto_C.setText(CategoryData);
+
+                    //    Category.addView(autoCompleteTextView);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BrowseChip> call, Throwable t) {
+
             }
         });
     }

@@ -13,7 +13,7 @@ import java.util.List;
 
 public class WriterAdapter extends RecyclerView.Adapter<WriterAdapter.MyViewHolder> {
     int a = 0;
-    List<Datum> items;
+    List<DatumCardList> items;
     private MyViewHolder.itemClickListener ICL;
     private MyViewHolder.itemLongClickListener ILCL;
 
@@ -23,9 +23,13 @@ public class WriterAdapter extends RecyclerView.Adapter<WriterAdapter.MyViewHold
         this.ILCL = ILCL;
     }
 
-    public void setItems(List<Datum> list) {
+    public void setItems(List<DatumCardList> list) {
         this.items = list;
         notifyDataSetChanged();
+    }
+    public List<DatumCardList> getItems(){
+
+        return this.items;
     }
 
     @NonNull

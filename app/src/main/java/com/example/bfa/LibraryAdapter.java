@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,12 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import PojoModels.Library;
-
 public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.MyViewHolder> {
 
     int a=0;
-    List<Datum> items;
+    List<DatumCardList> items;
     private MyViewHolder.itemClickListener ICL;
     private MyViewHolder.itemLongClickListener ILCL;
 
@@ -27,9 +24,14 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.MyViewHo
         this.ILCL=ILCL;
     }
 
-    public void setItems(List<Datum> list){
+    public void setItems(List<DatumCardList> list){
         this.items = list;
         notifyDataSetChanged();
+    }
+
+    public List<DatumCardList> getItems(){
+
+        return this.items;
     }
 
     @NonNull
@@ -62,7 +64,7 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.MyViewHo
         TextView name1;
         TextView address1;
         TextView phone;
-        ImageView logo1;
+        ImageView image1;
 
         itemLongClickListener ILCL;
         itemClickListener ICL;
@@ -80,6 +82,7 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.MyViewHo
             name1=itemView.findViewById(R.id.name1);
             phone = itemView.findViewById(R.id.phone);
             address1=itemView.findViewById(R.id.address1);
+            image1 = itemView.findViewById(R.id.image1);
 
 
 

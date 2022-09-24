@@ -2,11 +2,14 @@ package com.example.bfa;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Animatable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.service.autofill.UserData;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -14,6 +17,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import javax.security.auth.login.LoginException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,10 +53,26 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
+
+
+                SharedPreferences preferences = getSharedPreferences("bfa",MODE_PRIVATE);
+                String LoginInfo = preferences.getString("login", "");
+                if(! LoginInfo.isEmpty()){
+                    //user already logged in, go to Main Screen
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+
+                }else {
+                    //user hasn't logged in yet, to go Login Screen
+
+                    startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                    finish();
+                }
+                }
+
+//                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
         },SPLASH_SCREEN);
     }
 

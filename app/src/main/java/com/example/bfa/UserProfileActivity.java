@@ -49,7 +49,6 @@ public class UserProfileActivity extends AppCompatActivity {
 
         first_name = findViewById(R.id.first_name);
         last_name = findViewById(R.id.last_name);
-        //email = findViewById(R.id.email);
 
 
         // click on Listner
@@ -88,6 +87,7 @@ public class UserProfileActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+
                                 renderUI(response.body());
                             }
                         });

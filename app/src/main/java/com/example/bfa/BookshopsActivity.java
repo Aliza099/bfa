@@ -26,7 +26,7 @@ public class BookshopsActivity extends AppCompatActivity implements BookshopAdap
     ImageView image1, image2, image3, image4;
     TextView name1, name2, name3, name4, no1, no2, no3, no4;
 
-    List<Datum> items = new ArrayList<Datum>();
+    List<DatumCardList> items = new ArrayList<DatumCardList>();
     BookshopAdapter myAdapter;
     RecyclerView recyclerView;
 
@@ -90,7 +90,16 @@ public class BookshopsActivity extends AppCompatActivity implements BookshopAdap
     @Override
     public void onItemClick(int position) {
         //Open Hospital detail
+
+        Intent intent = new Intent(BookshopsActivity.this,LibListActivity.class);
+        if(myAdapter != null && myAdapter.getItems() != null && myAdapter.getItems().size() > position){
+
+            String url = "content/bookshops/"+ myAdapter.getItems().get(position).getId();
+            intent.putExtra("Url",url);
+            startActivity(intent);
+        }
     }
+
 
     @Override
     public boolean onItemLongClick(int position) {

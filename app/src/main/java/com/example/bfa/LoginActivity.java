@@ -45,7 +45,6 @@ public class LoginActivity extends AppCompatActivity {
         loading = findViewById(R.id.loading);
         signup = findViewById(R.id.signup);
         forgot = findViewById(R.id.forgot);
-
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,6 +98,14 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         try {
 
+
+//                            SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+//                            SharedPreferences.Editor editor = sharedPref.edit();
+//                            editor.putString("login", response);
+//                            editor.commit();
+
+
+
                             JSONObject jsonObject = new JSONObject(response);
                             JSONObject data = jsonObject.getJSONObject("data");
                             JSONObject token = data.getJSONObject("token");
@@ -108,8 +115,10 @@ public class LoginActivity extends AppCompatActivity {
                             SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
                             // change token
                             preferences.edit().putString("token", accessToken).commit();
+                            preferences.edit().putString("login",response).commit();
                             // chng get
                             String user = preferences.getString("token","");
+                            String LoginInfo = preferences.getString("info","");
                             Toast.makeText(LoginActivity.this, "Login successfully!", Toast.LENGTH_SHORT).show();
                             // Toast.makeText(LoginActivity.this,token, Toast.LENGTH_SHORT).show();
 
