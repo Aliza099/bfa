@@ -63,7 +63,7 @@ public class LibraryActivity extends AppCompatActivity implements LibraryAdapter
 
     private void GetLibrary() {
         SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
-        String token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY0MDMzMTA1LCJpYXQiOjE2NjM5NDY3MDUsImp0aSI6Ijk4NDk5MzJmY2FkNzRhYTJiMWNkYmZkYjc1MDVjNjE5IiwidXNlcl9pZCI6MzZ9.6VPNZ3WD_ZGg0fdWDoVA1tR7PwyG7k9OEOYBQUy5xMg";//preferences.getString("token", "");
+        String token = preferences.getString("token", "");
         Call<Library> call = RestApi.getClients(token).getLibrary();
         call.enqueue(new Callback<Library>() {
             @Override

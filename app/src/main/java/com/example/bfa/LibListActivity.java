@@ -26,7 +26,7 @@ public class LibListActivity extends AppCompatActivity
      ImageView back1;
     String Url;
 
-    List<DatumBookList> items = new ArrayList<DatumBookList>();
+    List<Data> items = new ArrayList<Data>();
     LibListAdapter myAdapter;
     RecyclerView recyclerView;
 
@@ -66,7 +66,7 @@ public class LibListActivity extends AppCompatActivity
 
     private void GetBooksList() {
         SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
-        String token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY0MDMzMTA1LCJpYXQiOjE2NjM5NDY3MDUsImp0aSI6Ijk4NDk5MzJmY2FkNzRhYTJiMWNkYmZkYjc1MDVjNjE5IiwidXNlcl9pZCI6MzZ9.6VPNZ3WD_ZGg0fdWDoVA1tR7PwyG7k9OEOYBQUy5xMg";//preferences.getString("token", "");
+        String token = preferences.getString("token", "");
         Call<LibList> call = RestApi.getClients(token).getLibBooks(Url);
         call.enqueue(new Callback<LibList>() {
             @Override
@@ -93,7 +93,10 @@ public class LibListActivity extends AppCompatActivity
     @Override
     public void onItemClick(int position) {
         //Open Hospital detail
+        Intent intent = new Intent(LibListActivity.this,BooksDetailsActivity.class);
+        startActivity(intent);
     }
+
 
     @Override
     public boolean onItemLongClick(int position) {

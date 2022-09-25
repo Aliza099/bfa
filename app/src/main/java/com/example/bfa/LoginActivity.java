@@ -29,7 +29,7 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText email, password;
-    private Button btn_login;
+    private Button btn_login,button_b;
     private TextView signup, forgot;
     private ProgressBar loading;
     private static String URL_LOGIN = "https://bfinder-be.herokuapp.com/api/user/login";
@@ -45,6 +45,14 @@ public class LoginActivity extends AppCompatActivity {
         loading = findViewById(R.id.loading);
         signup = findViewById(R.id.signup);
         forgot = findViewById(R.id.forgot);
+        button_b = findViewById(R.id.button_b);
+        button_b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this,BooksDetailsActivity.class);
+                startActivity(intent);
+            }
+        });
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

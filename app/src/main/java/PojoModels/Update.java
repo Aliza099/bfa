@@ -1,7 +1,7 @@
 package PojoModels;
 
 
-import com.example.bfa.Data;
+import com.example.bfa.ProfileResponse;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -17,7 +17,7 @@ public class Update {
     private Boolean success;
     @SerializedName("data")
     @Expose
-    private Data data;
+    private ProfileResponse data;
 
     public Integer getCode() {
         return code;
@@ -35,11 +35,11 @@ public class Update {
         this.success = success;
     }
 
-    public Data getData() {
+    public ProfileResponse getData() {
         return data;
     }
 
-    public void setData(Data data) {
+    public void setData(ProfileResponse data) {
         this.data = data;
     }
 

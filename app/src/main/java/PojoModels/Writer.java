@@ -37,10 +37,12 @@ import java.util.List;
         }
 
         public List<DatumCardList> getData() {
+
             return data;
         }
 
         public void setData(List<DatumCardList> data) {
+
             this.data = data;
         }
 

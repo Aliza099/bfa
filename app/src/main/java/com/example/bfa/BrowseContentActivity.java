@@ -108,10 +108,10 @@ public class BrowseContentActivity extends AppCompatActivity
                 if (response.errorBody() == null) {
                     if (response.body() != null) {
                         BrowseChip browseChip = response.body();
-                       // for (int i = 0; i< browseChip.size(); i++) ;
+                        for (int i = 0; i<browseChip.getData().size(); i++)
                         {
                             Chip chip = new Chip(BrowseContentActivity.this);
-                            chipData = browseChip.getData().get(0).getName();
+                            chipData = browseChip.getData().get(i).getName();
                             chip.setText(chipData);
                             chip.setCheckable(true);
                             chip.setClickable(true);

@@ -1,12 +1,14 @@
 package PojoModels;
 
 import com.example.bfa.Data;
+import com.example.bfa.DatumCardList;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class LibList {
+
+public class BooksResponse {
 
         @SerializedName("code")
         @Expose
@@ -16,7 +18,7 @@ public class LibList {
         private Boolean success;
         @SerializedName("data")
         @Expose
-        private List<Data> data = null;
+        private List<Data> data;
 
         public Integer getCode() {
             return code;
@@ -35,10 +37,11 @@ public class LibList {
         }
 
         public List<Data> getData() {
-            return data;
+            return  data;
         }
 
         public void setData(List<Data> data) {
+
             this.data = data;
         }
 

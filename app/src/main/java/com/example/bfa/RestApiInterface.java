@@ -1,5 +1,6 @@
 package com.example.bfa;
 
+import PojoModels.BooksResponse;
 import PojoModels.Bookshops;
 import PojoModels.Browse;
 import PojoModels.BrowseChip;
@@ -35,6 +36,9 @@ public interface RestApiInterface {
 
     @GET("content/book-categories")
     public Call<BrowseChip> getBrowseChip();
+
+    @GET("content/4")
+    public Call<BooksResponse> getBooksDetail();
 
 
 

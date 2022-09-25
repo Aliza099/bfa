@@ -91,14 +91,16 @@ public class UploadActivity extends AppCompatActivity {
         call.enqueue(new Callback<BrowseChip>() {
             @Override
             public void onResponse(Call<BrowseChip> call, Response<BrowseChip> response) {
-                if(response.errorBody() == null){
-                    if(response.body() != null){
+                if(response.errorBody() == null) {
+                    if (response.body() != null) {
                         BrowseChip browseChip = response.body();
-                        AutoCompleteTextView autoCompleteTextView = new AutoCompleteTextView(UploadActivity.this);
-                        CategoryData = browseChip.getData().get(0).getName();
-                        auto_C.setText(CategoryData);
+                        for (int i = 0; i < browseChip.getData().size(); i++) {
+                            AutoCompleteTextView autoCompleteTextView = new AutoCompleteTextView(UploadActivity.this);
+                            CategoryData = browseChip.getData().get(i).getName();
+                            auto_C.setText(CategoryData);
 
-                    //    Category.addView(autoCompleteTextView);
+                            //    Category.addView(autoCompleteTextView);
+                        }
                     }
                 }
             }
