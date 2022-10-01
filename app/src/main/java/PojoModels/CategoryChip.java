@@ -1,15 +1,13 @@
 package PojoModels;
 
 
-import android.text.InputFilter;
-
-import com.example.bfa.Datum;
+import com.example.bfa.CategoryResponse;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class BrowseChip {
+public class CategoryChip {
 
     @SerializedName("code")
     @Expose
@@ -19,7 +17,7 @@ public class BrowseChip {
     private Boolean success;
     @SerializedName("data")
     @Expose
-    private List<Datum> data = null;
+    private List<CategoryResponse> data = null;
     private int i;
 
     public Integer getCode() {
@@ -38,11 +36,11 @@ public class BrowseChip {
         this.success = success;
     }
 
-    public List<Datum> getData() {
+    public List<CategoryResponse> getData() {
         return data;
     }
 
-    public void setData(List<Datum> data) {
+    public void setData(List<CategoryResponse> data) {
         this.data = data;
     }
 

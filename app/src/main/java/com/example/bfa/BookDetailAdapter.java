@@ -3,7 +3,6 @@ package com.example.bfa;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,7 +14,7 @@ import java.util.List;
 public class BookDetailAdapter extends RecyclerView.Adapter<BookDetailAdapter.MyViewHolder> {
 
     int a=0;
-    List<Data> items;
+    List<BooksDetailResponse> items;
     private MyViewHolder.itemClickListener ICL;
     private MyViewHolder.itemLongClickListener ILCL;
 
@@ -24,7 +23,7 @@ public class BookDetailAdapter extends RecyclerView.Adapter<BookDetailAdapter.My
         this.ICL=ICL;
         this.ILCL=ILCL;
     }
-    public void setItems(List<Data> list){
+    public void setItems(List<BooksDetailResponse> list){
         this.items = list;
         notifyDataSetChanged();
     }

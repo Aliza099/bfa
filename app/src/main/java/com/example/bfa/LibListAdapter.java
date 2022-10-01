@@ -13,7 +13,7 @@ import java.util.List;
 
 public class LibListAdapter extends RecyclerView.Adapter<LibListAdapter.MyViewHolder> {
     int a=0;
-    List<Data> items;
+    List<BooksDetailResponse> items;
     private MyViewHolder.itemClickListener ICL;
     private MyViewHolder.itemLongClickListener ILCL;
 
@@ -23,11 +23,11 @@ public class LibListAdapter extends RecyclerView.Adapter<LibListAdapter.MyViewHo
         this.ILCL=ILCL;
     }
 
-    public void setItems(List<Data> list){
+    public void setItems(List<BooksDetailResponse> list){
         this.items = list;
         notifyDataSetChanged();
     }
-    public List<Data> getItems(){
+    public List<BooksDetailResponse> getItems(){
 
         return this.items;
     }

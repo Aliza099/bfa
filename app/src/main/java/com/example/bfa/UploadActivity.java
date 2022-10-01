@@ -6,23 +6,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.icu.util.ULocale;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.nio.file.Path;
-import java.util.Locale;
-
-import PojoModels.BrowseChip;
+import PojoModels.CategoryChip;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -87,13 +80,13 @@ public class UploadActivity extends AppCompatActivity {
     private void GetCategory() {
         SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
         String token = preferences.getString("token", "");
-        Call<BrowseChip> call = RestApi.getClients(token).getBrowseChip();
-        call.enqueue(new Callback<BrowseChip>() {
+        Call<CategoryChip> call = RestApi.getClients(token).getBrowseChip();
+        call.enqueue(new Callback<CategoryChip>() {
             @Override
-            public void onResponse(Call<BrowseChip> call, Response<BrowseChip> response) {
+            public void onResponse(Call<CategoryChip> call, Response<CategoryChip> response) {
                 if(response.errorBody() == null) {
                     if (response.body() != null) {
-                        BrowseChip browseChip = response.body();
+                        CategoryChip browseChip = response.body();
                         for (int i = 0; i < browseChip.getData().size(); i++) {
                             AutoCompleteTextView autoCompleteTextView = new AutoCompleteTextView(UploadActivity.this);
                             CategoryData = browseChip.getData().get(i).getName();
@@ -106,7 +99,7 @@ public class UploadActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<BrowseChip> call, Throwable t) {
+            public void onFailure(Call<CategoryChip> call, Throwable t) {
 
             }
         });

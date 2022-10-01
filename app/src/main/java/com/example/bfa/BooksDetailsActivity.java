@@ -8,9 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.Toast;
-
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +25,7 @@ public class BooksDetailsActivity extends AppCompatActivity
 
     String Url;
 
-    List<Data> items = new ArrayList<Data>();
+    List<BooksDetailResponse> items = new ArrayList<BooksDetailResponse>();
     BookDetailAdapter myAdapter;
     RecyclerView recyclerView;
 

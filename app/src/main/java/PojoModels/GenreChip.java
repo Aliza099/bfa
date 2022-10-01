@@ -1,12 +1,12 @@
 package PojoModels;
 
-import com.example.bfa.BooksDetailResponse;
+import com.example.bfa.GenreResponse;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class LibList {
+public class GenreChip {
 
         @SerializedName("code")
         @Expose
@@ -16,7 +16,7 @@ public class LibList {
         private Boolean success;
         @SerializedName("data")
         @Expose
-        private List<BooksDetailResponse> data = null;
+        private List<GenreResponse> data = null;
 
         public Integer getCode() {
             return code;
@@ -34,11 +34,11 @@ public class LibList {
             this.success = success;
         }
 
-        public List<BooksDetailResponse> getData() {
+        public List<GenreResponse> getData() {
             return data;
         }
 
-        public void setData(List<BooksDetailResponse> data) {
+        public void setData(List<GenreResponse> data) {
             this.data = data;
         }
 

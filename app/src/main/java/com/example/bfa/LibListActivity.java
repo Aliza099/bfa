@@ -26,7 +26,7 @@ public class LibListActivity extends AppCompatActivity
      ImageView back1;
     String Url;
 
-    List<Data> items = new ArrayList<Data>();
+    List<BooksDetailResponse> items = new ArrayList<BooksDetailResponse>();
     LibListAdapter myAdapter;
     RecyclerView recyclerView;
 

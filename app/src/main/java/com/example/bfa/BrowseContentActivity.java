@@ -25,7 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import PojoModels.Browse;
-import PojoModels.BrowseChip;
+import PojoModels.CategoryChip;
+import PojoModels.GenreChip;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,10 +36,14 @@ public class BrowseContentActivity extends AppCompatActivity
         BrowseAdapter.MyViewHolder.itemLongClickListener{
 
 
-    // for chips show
+    // for Category chips show
     private ChipGroup chip_group;
     private ProgressDialog progressDialog;
     String chipData;
+
+    // for Genre Chip show
+    private ChipGroup chip_Genre;
+    String GenreData;
 
     // for List show
     List<Response> items = new ArrayList<Response>();
@@ -61,7 +66,12 @@ public class BrowseContentActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_content);
 
+        // for Genre Chip
+        chip_Genre = findViewById(R.id.chip_Genre);
 
+        GetGenre();
+
+        // for Category Chip
         progressDialog = new ProgressDialog(this);
         chip_group = findViewById(R.id.chip_group);
 
@@ -93,6 +103,43 @@ public class BrowseContentActivity extends AppCompatActivity
 
     }
 
+    private void GetGenre() {
+        SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
+        String token = preferences.getString("token", "");
+        Call<GenreChip> call = RestApi.getClients(token).getGenreChip();
+        call.enqueue(new Callback<GenreChip>() {
+            @Override
+            public void onResponse(Call<GenreChip> call, Response<GenreChip> response) {
+                if(response.errorBody() == null){
+                    if(response.body() != null){
+                        GenreChip browseChip = response.body();
+                        for (int i = 0; i<browseChip.getData().size(); i++)
+                        {
+                            Chip chip = new Chip(BrowseContentActivity.this);
+                            GenreData = browseChip.getData().get(i).getName();
+                            chip.setText(GenreData);
+                            chip.setCheckable(true);
+                            chip.setClickable(true);
+                            chip_Genre.addView(chip);
+                        }
+                        chip_Genre.setVisibility(View.VISIBLE);
+
+                    }
+                }
+            }
+
+
+
+            @Override
+            public void onFailure(Call<GenreChip> call, Throwable t) {
+                Toast.makeText(BrowseContentActivity.this,t.getMessage(), Toast.LENGTH_SHORT).show();
+
+
+            }
+        });
+
+    }
+
     private void GetChip() {
         progressDialog. setMessage("Loading...");
         progressDialog.setCancelable(false);
@@ -100,14 +147,14 @@ public class BrowseContentActivity extends AppCompatActivity
 
         SharedPreferences preferences = getSharedPreferences("bfa", MODE_PRIVATE);
         String token = preferences.getString("token", "");
-        Call<BrowseChip> call = RestApi.getClients(token).getBrowseChip();
-        call.enqueue(new Callback<BrowseChip>() {
+        Call<CategoryChip> call = RestApi.getClients(token).getBrowseChip();
+        call.enqueue(new Callback<CategoryChip>() {
             @Override
-            public void onResponse(Call<BrowseChip> call, Response<BrowseChip> response) {
+            public void onResponse(Call<CategoryChip> call, Response<CategoryChip> response) {
                 progressDialog.dismiss();
                 if (response.errorBody() == null) {
                     if (response.body() != null) {
-                        BrowseChip browseChip = response.body();
+                        CategoryChip browseChip = response.body();
                         for (int i = 0; i<browseChip.getData().size(); i++)
                         {
                             Chip chip = new Chip(BrowseContentActivity.this);
@@ -125,7 +172,7 @@ public class BrowseContentActivity extends AppCompatActivity
 
 
             @Override
-            public void onFailure(Call<BrowseChip> call, Throwable t) {
+            public void onFailure(Call<CategoryChip> call, Throwable t) {
                 progressDialog.dismiss();
                 Toast.makeText(BrowseContentActivity.this,t.getMessage(), Toast.LENGTH_SHORT).show();
 
