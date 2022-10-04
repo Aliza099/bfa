@@ -9,11 +9,14 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.List;
 
 import PojoModels.CategoryChip;
 import retrofit2.Call;
@@ -41,7 +44,7 @@ public class UploadActivity extends AppCompatActivity {
         auto_C = findViewById(R.id.auto_C);
         Category = findViewById(R.id.Category);
 
-        GetCategory();
+       // GetCategory();
 
         backBtn = findViewById(R.id.back);
         backBtn.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +67,7 @@ public class UploadActivity extends AppCompatActivity {
 //                android.R.layout.simple_spinner_item, items);
 //        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //        spinner_c.setAdapter(adapter);
+
 
 
 //         click on listner on arrow

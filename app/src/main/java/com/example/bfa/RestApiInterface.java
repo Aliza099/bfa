@@ -46,7 +46,7 @@ public interface RestApiInterface {
     @GET("content/genres")
     public Call<GenreChip> getGenreChip();
 
-    @GET("content/4")
+    @GET("content/writers/7")
     public Call<BooksResponse> getBooksDetail();
 
 
