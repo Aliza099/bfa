@@ -1,5 +1,7 @@
 package com.example.bfa;
 
+import com.google.gson.JsonObject;
+
 import PojoModels.BooksResponse;
 import PojoModels.Bookshops;
 import PojoModels.Browse;
@@ -12,6 +14,7 @@ import PojoModels.Writer;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface RestApiInterface {
  // for profile Activity
@@ -46,8 +49,17 @@ public interface RestApiInterface {
     @GET("content/genres")
     public Call<GenreChip> getGenreChip();
 
-    @GET("content/writers/7")
+    @GET("content/writers/4")
     public Call<BooksResponse> getBooksDetail();
+
+    // for Query String
+    @GET("content?")
+    public Call<Browse> getLocationInfo(@Query("Longitude") String longitude,
+                                     @Query("Latitude") String latitude,
+                                     @Query("title") String title,
+                                     @Query("genres") int genres,
+                                     @Query("book_category") int bookCategory);
+
 
 
 
